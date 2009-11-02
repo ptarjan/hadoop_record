@@ -121,10 +121,19 @@ class LazyString:
     def __init__(self, s, encoding="utf8") :
         self._str = s
         self._encoding = encoding
+        self._decoded = None
+    def _decode(self):
+        if not self._decoded :
+            self._decoded =  self._str.decode(self._encoding)
+        return self._decoded
     def __str__(self):
-        return self._str.decode(self._encoding)
+        decoded = self._decode()
+        if type(decoded) == str : return decoded
+        return decoded.encode('utf-8')
     def __unicode__(self):
-        return self._str.decode(self._encoding)
+        decoded = self._decode()
+        if type(decoded) == unicode : return decoded
+        return unicode(decoded)
     def __repr__(self):
         return 'LazyString(%s)' % repr(str(self))
 
