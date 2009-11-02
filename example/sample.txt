@@ -1,0 +1,3 @@
+http://www.yahoo.com	'http://www.yahoo.com,#656e,1252626359
+http://www.paulisageek.com	'http://www.paulisageek.com,#656e,1234567890
+http://www.yandex.ru	'http://www.yandex.ru,#7275,1234567890
