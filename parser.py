@@ -118,11 +118,11 @@ def p_chars(p) :
         p[0] = p[1]
 
 class LazyString:
-    def __init__(self, s, encoding) :
+    def __init__(self, s, encoding="utf8") :
         self._str = s
         self._encoding = encoding
     def __str__(self):
-        return unicode(self).encode("utf-8")
+        return self._str.decode(self._encoding)
     def __unicode__(self):
         return self._str.decode(self._encoding)
     def __repr__(self):
