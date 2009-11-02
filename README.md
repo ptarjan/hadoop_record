@@ -31,7 +31,7 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
     >>> csv("v{s{T,F}}")
     [[True, False]]
     >>> csv("m{'don't,#73746f70}")
-    [LazyString("don't"), LazyString('stop')]
+    {LazyString("don't"): LazyString('stop')}
     >>> csv("'\xe2\x98\x83")
     LazyString('\xe2\x98\x83')
     >>> str(csv("'\xe2\x98\x83"))
@@ -52,7 +52,3 @@ and you're good to go.
     $ hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input /data/logs_in_jute_format/part-0* -inputformat SequenceFileAsTextInputFormat -output output_dir -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file JuteDecoder.jar -file hadoop_record.mod
 
 With `mapper.py`, `reducer.py`, and `yahoo.py` from the `examples` directory.
-
-## TODO
-
-* Implement maps correctly (currently they are just vectors). Can someone send me a sample?

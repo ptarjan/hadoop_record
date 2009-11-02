@@ -177,7 +177,13 @@ def p_vector(p):
 # not sure how this is stored
 def p_map(p):
     """map : MAP recordlist END"""
-    p[0] = p[2]
+    m = dict()
+    a = p[2]
+    if len(a) % 2 != 0 :
+        raise TypeError("Map doesn't have an even number of keys. Length: %s" % len(a))
+    for i in xrange(0, len(a), 2) :
+        m[a[i]] = a[i+1]
+    p[0] = m
 
 def p_error(p):
     p.lexer.begin('INITIAL')
