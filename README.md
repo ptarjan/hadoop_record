@@ -1,5 +1,4 @@
-
-# hadoop_record : A record reader for hadoop
+# hadoop_record : A python record reader for hadoop
 
 This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoop/common/trunk/src/java/org/apache/hadoop/record/CsvRecordOutput.java) files so you can easily use them in python streaming programs.
 
