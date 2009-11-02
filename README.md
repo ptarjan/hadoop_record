@@ -38,6 +38,8 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
     '\xe2\x98\x83'
     >>> unicode(csv("'\xe2\x98\x83"))
     u'\u2603'
+    >>> csv("'%00%0a%25%2c")
+    LazyString('\x00\n%,')
 
 ## Hadoop
 

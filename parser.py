@@ -118,13 +118,16 @@ def p_chars(p) :
         p[0] = p[1]
 
 class LazyString:
-    def __init__(self, s, encoding="utf8") :
+    def __init__(self, s, encoding="utf8", decodeFunc=None) :
         self._str = s
         self._encoding = encoding
         self._decoded = None
+        self.decodeFunc = decodeFunc
     def _decode(self):
         if not self._decoded :
             self._decoded =  self._str.decode(self._encoding)
+            if self.decodeFunc :
+                self._decoded = self.decodeFunc(self._decoded)
         return self._decoded
     def __str__(self):
         decoded = self._decode()
@@ -139,7 +142,11 @@ class LazyString:
 
 def p_ustring(p):
     """ustring : QUOTE chars"""
-    p[0] = LazyString(p[2], 'utf-8')
+    def decode(x) :
+        for a,b in (("%00", "\0"), ("%0a", "\n"), ("%25", "%"), ("%2c", ",")):
+            x = x.replace(a, b)
+        return x
+    p[0] = LazyString(p[2], 'utf-8', lambda x : decode(x))
 
 def p_buffer(p):
     """buffer : HASH chars"""
