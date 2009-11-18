@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+"""
+Takes a line of hadoop record csv encoded data and returns a Document
+
+>>> import yahoo
+>>> line = "http://www.paulisageek.com\t'http://www.paulisageek.com,#656e,1234567890"
+>>> doc = yahoo.Document(line)
+>>> print doc.url, doc.language, doc.lastCrawlTime
+"""
 import sys
 sys.path.append("hadoop.mod")
 from hadoop_record import parser
