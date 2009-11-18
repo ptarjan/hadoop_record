@@ -8,7 +8,7 @@ Takes a line of hadoop record csv encoded data and returns a Document
 >>> print doc.url, doc.language, doc.lastCrawlTime
 """
 import sys
-sys.path.append("hadoop.mod")
+sys.path.append("hadoop_record.mod")
 from hadoop_record import parser
 
 class Document:
