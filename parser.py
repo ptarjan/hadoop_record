@@ -129,6 +129,12 @@ class LazyString:
             if self.decodeFunc :
                 self._decoded = self.decodeFunc(self._decoded)
         return self._decoded
+    def __eq__(self, other):
+        return unicode(self) == unicode(other)
+    def __neq__(self, other):
+        return not self == other
+    def __hash__(self):
+        return hash(self._str)
     def __str__(self):
         decoded = self._decode()
         if type(decoded) == str : return decoded
@@ -195,29 +201,37 @@ def p_error(p):
 lexer = lex.lex()
 parser = yacc.yacc(debug=0, write_tables=0)
 
+######################## API ######################
+def csv(s) :
+    lexer.begin('INITIAL')
+    return parser.parse(s, lexer=lexer)
+
+######################## TESTS ######################
+
 def test():
     test_primatives()
 
 def test_primatives() :
-    assert yacc.parse("T") == True
-    assert yacc.parse("F") == False
-    assert yacc.parse("1234") == 1234
-    assert yacc.parse("-1234") == -1234
-    assert yacc.parse(";1234") == 1234
-    assert yacc.parse(";-1234") == -1234
-    assert yacc.parse("1.2") == 1.2
-    assert yacc.parse("-1.2") == -1.2
-    assert yacc.parse("1.0e10") == 1e10
-    assert yacc.parse("1.0E10") == 1e10
-    assert yacc.parse("1.0E-10") == 1e-10
-    assert yacc.parse(";1.2") == 1.2
-    assert yacc.parse("s{T,F}") == [True, False]
-    assert yacc.parse("v{T,F}") == [True, False]
-    assert yacc.parse("m{T,F}") == [True, False]
-    assert yacc.parse("m{'don't,#20416120}") == ["don't", " Aa "]
-    assert yacc.parse("v{s{T,F}}") == [[True,False]]
-    assert yacc.parse("v{s{T,F}},v{s{F,F}}") == [[[True,False]], [[False, False]]]
-    assert yacc.parse("'\xe2\x98\x83") == u"\u2603"
+    assert csv("T") == True
+    assert csv("F") == False
+    assert csv("1234") == 1234
+    assert csv("-1234") == -1234
+    assert csv(";1234") == 1234
+    assert csv(";-1234") == -1234
+    assert csv("1.2") == 1.2
+    assert csv("-1.2") == -1.2
+    assert csv("1.0e10") == 1e10
+    assert csv("1.0E10") == 1e10
+    assert csv("1.0E-10") == 1e-10
+    assert csv(";1.2") == 1.2
+    assert csv("s{T,F}") == [True, False]
+    assert csv("v{T,F}") == [True, False]
+    assert csv("m{T,F}") == {True: False}
+    assert csv("'abc") == LazyString("abc")
+    assert map(str, csv("m{'don't,#20416120}").items()[0]) == ["don't", " Aa "]
+    assert csv("v{s{T,F}}") == [[True,False]]
+    assert csv("v{s{T,F}},v{s{F,F}}") == [[[True,False]], [[False, False]]]
+    assert csv("'\xe2\x98\x83") == u"\u2603"
 
 if __name__ == "__main__":
     import sys
@@ -226,9 +240,3 @@ if __name__ == "__main__":
     else :
         test()
         print "All tests passed."
-
-
-######################## API ######################
-def csv(s) :
-    lexer.begin('INITIAL')
-    return parser.parse(s, lexer=lexer)
