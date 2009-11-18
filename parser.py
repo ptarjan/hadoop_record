@@ -135,6 +135,8 @@ class LazyString:
         return not self == other
     def __hash__(self):
         return hash(self._str)
+    def __getattr__(self, name):
+        return getattr(str(self), name)
     def __str__(self):
         decoded = self._decode()
         if type(decoded) == str : return decoded
