@@ -43,12 +43,20 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
 
 ## Hadoop
 
-Use it on Jute Records for hadoop. Make sure to use 
+    git clone git@github.com:ptarjan/hadoop_record.git
+    cd hadoop_record/example/
+    hadoop fs -put sample.txt
+    hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input hadoop_record/sample.txt -inputformat TextInputFormat -output hadoop_record/sample_output -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file hadoop_record.mod
+    hadoop fs -cat hadoop_record/sample_output
+     en      2
+     ru      1
 
-    -inputformat SequenceFileAsTextInputFormat -file hadoop_record.mod
+And if you have a binary record, you need:
 
-and you're good to go. 
+    -inputformat SequenceFileAsTextInputFormat -file JuteRecordClasses.jar
 
-    $ hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input /data/logs_in_jute_format/part-0* -inputformat SequenceFileAsTextInputFormat -output output_dir -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file JuteDecoder.jar -file hadoop_record.mod
+and you're good to go. Like
+
+    $ hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input /data/logs_in_jute_format/part-0* -inputformat SequenceFileAsTextInputFormat -output output_dir -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file JuterecordClasses.jar -file hadoop_record.mod
 
 With `mapper.py`, `reducer.py`, and `yahoo.py` from the `examples` directory.
