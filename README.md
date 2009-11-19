@@ -47,7 +47,7 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
     cd hadoop_record/example/
     hadoop fs -put sample.txt .
     hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input sample.txt -output sample_output -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file hadoop_record.mod
-    hadoop fs -cat sample_output
+    hadoop fs -cat sample_output/*
      en      2
      ru      1
 
