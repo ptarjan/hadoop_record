@@ -57,6 +57,6 @@ And if you have a binary record, you need:
 
 and you're good to go. Like
 
-    $ hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input /data/logs_in_jute_format/part-0* -inputformat SequenceFileAsTextInputFormat -output output_dir -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file JuterecordClasses.jar -file hadoop_record.mod
+    hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input /data/data_in_jute_format/part-0* -inputformat SequenceFileAsTextInputFormat -output output_dir -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file JuterecordClasses.jar -file hadoop_record.mod
 
 With `mapper.py`, `reducer.py`, and `yahoo.py` from the `examples` directory.
