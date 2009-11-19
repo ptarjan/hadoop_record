@@ -4,7 +4,7 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
 
 ## tl;dr
 
-    git clone git@github.com:ptarjan/hadoop_record.git
+    git clone git://github.com/ptarjan/hadoop_record.git
     cd hadoop_record/example/
     cat sample.txt | ./mapper.py | sort | ./reducer.py
      en      2
@@ -43,7 +43,7 @@ This library reads the output of [Hadoop CSV](http://svn.apache.org/viewvc/hadoo
 
 ## Hadoop
 
-    git clone git@github.com:ptarjan/hadoop_record.git
+    git clone git://github.com/ptarjan/hadoop_record.git
     cd hadoop_record/example/
     hadoop fs -put sample.txt
     hadoop jar $HADOOP_HOME/hadoop-streaming.jar -input sample.txt -output sample_output -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -file yahoo.py -file hadoop_record.mod
